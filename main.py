@@ -17,6 +17,10 @@ centerCoord = (0, 0)
 skySurface = pygame.image.load('graphics/Sky.png')
 groundSurface = pygame.image.load('graphics/ground.png')
 
+# Text
+scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
+fontSurface = scoreFont.render('Sample text', True, 'Black')
+
 # Clock
 clock = pygame.time.Clock()
 
@@ -36,9 +40,9 @@ def main():
         # Logical updates
 
         # Graphical updates
-
         screen.blit(skySurface, centerCoord)
         screen.blit(groundSurface, (0, 300))
+        screen.blit(fontSurface, (300, 50))
 
         # Update display surface
         pygame.display.update()
