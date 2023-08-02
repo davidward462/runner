@@ -13,10 +13,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Runner')
 
 # Surfaces
-width = 100
-height = 200
-test_surface = pygame.Surface((width, height))
-test_surface.fill('blue')
+centerCoord = (0, 0)
+skySurface = pygame.image.load('graphics/Sky.png')
+groundSurface = pygame.image.load('graphics/ground.png')
 
 # Clock
 clock = pygame.time.Clock()
@@ -38,7 +37,8 @@ def main():
 
         # Graphical updates
 
-        screen.blit(test_surface, (300, 20))
+        screen.blit(skySurface, centerCoord)
+        screen.blit(groundSurface, (0, 300))
 
         # Update display surface
         pygame.display.update()
