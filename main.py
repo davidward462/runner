@@ -17,6 +17,9 @@ centerCoord = (0, 0)
 skySurface = pygame.image.load('graphics/Sky.png')
 groundSurface = pygame.image.load('graphics/ground.png')
 
+# Entities
+snailSurface = pygame.image.load('graphics/snail1.png')
+
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 fontSurface = scoreFont.render('Sample text', True, 'Black')
@@ -40,9 +43,12 @@ def main():
         # Logical updates
 
         # Graphical updates
+
+        # Blit surfaces
         screen.blit(skySurface, centerCoord)
         screen.blit(groundSurface, (0, 300))
         screen.blit(fontSurface, (300, 50))
+        screen.blit(snailSurface, (600, 250))
 
         # Update display surface
         pygame.display.update()
