@@ -20,6 +20,8 @@ groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 # Entities
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 
+playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
+
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 fontSurface = scoreFont.render('Sample text', True, 'Black')
@@ -43,6 +45,11 @@ def main():
                 exit()
 
         # Logical updates
+
+        # snail movement
+        if snailX < -100: 
+            snailX = 800
+
         snailX = snailX - 3
 
         # Graphical updates
@@ -52,6 +59,7 @@ def main():
         screen.blit(groundSurface, (0, 300))
         screen.blit(fontSurface, (300, 50))
         screen.blit(snailSurface, (snailX, 250))
+        screen.blit(playerSurface, (80, 200))
 
         # Update display surface
         pygame.display.update()
