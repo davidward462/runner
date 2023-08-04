@@ -14,11 +14,11 @@ pygame.display.set_caption('Runner')
 
 # Surfaces
 centerCoord = (0, 0)
-skySurface = pygame.image.load('graphics/Sky.png')
-groundSurface = pygame.image.load('graphics/ground.png')
+skySurface = pygame.image.load('graphics/Sky.png').convert_alpha()
+groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 # Entities
-snailSurface = pygame.image.load('graphics/snail1.png')
+snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
@@ -28,6 +28,8 @@ fontSurface = scoreFont.render('Sample text', True, 'Black')
 clock = pygame.time.Clock()
 
 def main():
+
+    snailX = 600
 
     # Begin main game loop
     while True:
@@ -41,6 +43,7 @@ def main():
                 exit()
 
         # Logical updates
+        snailX = snailX - 3
 
         # Graphical updates
 
@@ -48,7 +51,7 @@ def main():
         screen.blit(skySurface, centerCoord)
         screen.blit(groundSurface, (0, 300))
         screen.blit(fontSurface, (300, 50))
-        screen.blit(snailSurface, (600, 250))
+        screen.blit(snailSurface, (snailX, 250))
 
         # Update display surface
         pygame.display.update()
