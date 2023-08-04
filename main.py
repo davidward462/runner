@@ -46,6 +46,9 @@ while True:
             exit()
 
     # Logical updates
+    if snailRect.right <= 0:
+        snailRect.left = 800
+    snailRect.x = snailRect.x - 2
 
     # Graphical updates
 
