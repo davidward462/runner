@@ -20,7 +20,11 @@ groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 # Entities
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 
+# Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
+
+# Draw rectangle around surface
+playerRect = playerSurface.get_rect(midbottom = (80, 300)) 
 
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
@@ -59,7 +63,7 @@ def main():
         screen.blit(groundSurface, (0, 300))
         screen.blit(fontSurface, (300, 50))
         screen.blit(snailSurface, (snailX, 250))
-        screen.blit(playerSurface, (80, 200))
+        screen.blit(playerSurface, playerRect)
 
         # Update display surface
         pygame.display.update()
