@@ -19,8 +19,7 @@ groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 # Entities
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
-snailX = 600
-snailRect = snailSurface.get_rect(midbottom = (snailX, 250))
+snailRect = snailSurface.get_rect(midbottom = (600, 300))
 
 # Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
@@ -35,44 +34,34 @@ fontSurface = scoreFont.render('Sample text', True, 'Black')
 # Clock
 clock = pygame.time.Clock()
 
-def main():
+# Begin main game loop
+while True:
 
+    # Get event from queue (inputs)
+    for event in pygame.event.get():
 
-    # Begin main game loop
-    while True:
+        # on window close
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
 
-        # Get event from queue (inputs)
-        for event in pygame.event.get():
+    # Logical updates
 
-            # on window close
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+    # Graphical updates
 
-        # Logical updates
+    # Blit surfaces
+    screen.blit(skySurface, centerCoord)
+    screen.blit(groundSurface, (0, 300))
+    screen.blit(fontSurface, (300, 50))
+    screen.blit(snailSurface, snailRect)
+    screen.blit(playerSurface, playerRect)
 
-        # snail movement
-        if snailX < -100: 
-            snailX = 800
+    # Update display surface
+    pygame.display.update()
 
-        snailX = snailX - 3
+    # Tick speed
+    clock.tick(60)
 
-        # Graphical updates
+# End main game loop.
 
-        # Blit surfaces
-        screen.blit(skySurface, centerCoord)
-        screen.blit(groundSurface, (0, 300))
-        screen.blit(fontSurface, (300, 50))
-        screen.blit(snailSurface, snailRect)
-        screen.blit(playerSurface, playerRect)
-
-        # Update display surface
-        pygame.display.update()
-
-        # Tick speed
-        clock.tick(60)
-
-    # End main game loop.
-
-main()
 
