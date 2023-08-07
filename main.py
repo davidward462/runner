@@ -50,6 +50,13 @@ while True:
         snailRect.left = 800
     snailRect.x = snailRect.x - 2
 
+    # Collisions
+
+    # Check if player rectangle collides with snail rectangle.
+    # colliderect() returns 0 or 1.
+    # Reversing the rectangles in terms of arguments would also work.
+    playerRect.colliderect(snailRect)
+
     # Graphical updates
 
     # Blit surfaces
