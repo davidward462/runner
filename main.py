@@ -49,6 +49,15 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+        if event.type == pygame.KEYDOWN:
+            print(' key down')
+            if event.key == pygame.K_SPACE:
+                print(' jump')
+
+        if event.type == pygame.KEYUP:
+            print(' key up')
+            
             """
         if event.type == pygame.MOUSEBUTTONDOWN:
             mousePos = event.pos
