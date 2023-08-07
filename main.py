@@ -29,7 +29,7 @@ playerRect = playerSurface.get_rect(midbottom = (80, 300))
 
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
-fontSurface = scoreFont.render('Sample text', True, 'Black')
+scoreSurface = scoreFont.render('Sample text', True, 'Black')
 
 # Clock
 clock = pygame.time.Clock()
@@ -69,7 +69,7 @@ while True:
     # Blit surfaces
     screen.blit(skySurface, centerCoord)
     screen.blit(groundSurface, (0, 300))
-    screen.blit(fontSurface, (300, 50))
+    screen.blit(scoreSurface, (300, 50))
     screen.blit(snailSurface, snailRect)
     screen.blit(playerSurface, playerRect)
 
