@@ -44,6 +44,13 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+            """
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mousePos = event.pos
+            playerMouseClick = playerRect.collidepoint(mousePos)
+            if playerMouseClick:
+                print(f" click on player: {mousePos}")
+                """
 
     # Logical updates
     if snailRect.right <= 0:
