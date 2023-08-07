@@ -27,9 +27,13 @@ playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
 # Draw rectangle around surface
 playerRect = playerSurface.get_rect(midbottom = (80, 300)) 
 
+# Colors
+textColor = '#404040'
+boxColor = '#c0e8ec'
+
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
-scoreSurface = scoreFont.render('Sample text', True, 'Black')
+scoreSurface = scoreFont.render('Sample text', True, textColor)
 scoreRect = scoreSurface.get_rect(center = (400, 50))
 
 # Clock
@@ -68,9 +72,16 @@ while True:
     # Graphical updates
 
     # Blit surfaces
+    # Environment
     screen.blit(skySurface, centerCoord)
     screen.blit(groundSurface, (0, 300))
+
+    # Score text
+    pygame.draw.rect(screen, boxColor, scoreRect) 
+    pygame.draw.rect(screen, boxColor, scoreRect, 10) 
     screen.blit(scoreSurface, scoreRect)
+    
+    # Entities
     screen.blit(snailSurface, snailRect)
     screen.blit(playerSurface, playerRect)
 
