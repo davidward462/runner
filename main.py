@@ -12,6 +12,10 @@ SCREEN_HEIGHT = 400
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Runner')
 
+# Variables
+playerGravity = 0
+groundHeight = 300
+
 # Surfaces
 centerCoord = (0, 0)
 skySurface = pygame.image.load('graphics/Sky.png').convert_alpha()
@@ -19,13 +23,13 @@ groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 # Entities
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
-snailRect = snailSurface.get_rect(midbottom = (600, 300))
+snailRect = snailSurface.get_rect(midbottom = (600, groundHeight))
 
 # Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
 
 # Draw rectangle around surface
-playerRect = playerSurface.get_rect(midbottom = (80, 300)) 
+playerRect = playerSurface.get_rect(midbottom = (80, groundHeight)) 
 
 # Colors
 textColor = '#404040'
@@ -36,8 +40,6 @@ scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 scoreSurface = scoreFont.render('Sample text', True, textColor)
 scoreRect = scoreSurface.get_rect(center = (400, 50))
 
-# Variables
-playerGravity = 0
 
 # Clock
 clock = pygame.time.Clock()
@@ -55,6 +57,7 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
+                    
                 playerGravity = -20
             
     # Logical updates
@@ -64,6 +67,9 @@ while True:
 
     playerGravity += 1
     playerRect.y += playerGravity
+
+    if playerRect.bottom >= groundHeight: 
+        playerRect.bottom = groundHeight
 
     # Collisions
 
