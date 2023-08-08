@@ -54,12 +54,8 @@ while True:
             exit()
 
         if event.type == pygame.KEYDOWN:
-            print(' key down')
             if event.key == pygame.K_SPACE:
-                print(' jump')
-
-        if event.type == pygame.KEYUP:
-            print(' key up')
+                playerGravity = -20
             
             """
         if event.type == pygame.MOUSEBUTTONDOWN:
