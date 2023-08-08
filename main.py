@@ -56,14 +56,13 @@ while True:
             exit()
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                    
+            if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                 playerGravity = -20
             
     # Logical updates
     if snailRect.right <= 0:
         snailRect.left = 800
-    snailRect.x = snailRect.x - 2
+    snailRect.x = snailRect.x - 4
 
     playerGravity += 1
     playerRect.y += playerGravity
