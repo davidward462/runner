@@ -57,14 +57,6 @@ while True:
             if event.key == pygame.K_SPACE:
                 playerGravity = -20
             
-            """
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = event.pos
-            playerMouseClick = playerRect.collidepoint(mousePos)
-            if playerMouseClick:
-                print(f" click on player: {mousePos}")
-                """
-
     # Logical updates
     if snailRect.right <= 0:
         snailRect.left = 800
