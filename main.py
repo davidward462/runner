@@ -36,12 +36,15 @@ scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 scoreSurface = scoreFont.render('Sample text', True, textColor)
 scoreRect = scoreSurface.get_rect(center = (400, 50))
 
+# Variables
+playerGravity = 0
+
 # Clock
 clock = pygame.time.Clock()
 
 # Begin main game loop
 while True:
-
+    
     # Get event from queue (inputs)
     for event in pygame.event.get():
 
@@ -70,6 +73,9 @@ while True:
     if snailRect.right <= 0:
         snailRect.left = 800
     snailRect.x = snailRect.x - 2
+
+    playerGravity += 1
+    playerRect.y += playerGravity
 
     # Collisions
 
