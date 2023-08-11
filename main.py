@@ -46,7 +46,7 @@ clock = pygame.time.Clock()
 
 def main():
 
-    gameActive = True
+    playerAlive = True
     playerGravity = 0
 
     # Begin main game loop
@@ -63,8 +63,11 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                     playerGravity = -20
+                if event.key == pygame.K_SPACE and not playerAlive:
+                    snailRect.x = 600
+                    main()
                 
-        if gameActive:
+        if playerAlive:
             # Logical updates
             if snailRect.right <= 0:
                 snailRect.left = 800
@@ -84,8 +87,7 @@ def main():
             #playerRect.colliderect(snailRect)
 
             if snailRect.colliderect(playerRect):
-                gameActive = False
-                
+                playerAlive = False
 
             # Graphical updates
 
