@@ -64,7 +64,7 @@ def main():
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                     playerGravity = -20
                 if event.key == pygame.K_SPACE and not playerAlive:
-                    snailRect.x = 600
+                    snailRect.x = 800
                     main()
                 
         if playerAlive:
