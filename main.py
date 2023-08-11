@@ -4,6 +4,7 @@ from sys import exit
 # Initialize pygame subsystems
 pygame.init()
 
+
 # Set up window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -13,7 +14,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Runner')
 
 # Variables
-playerGravity = 0
 groundHeight = 300
 
 # Surfaces
@@ -44,61 +44,73 @@ scoreRect = scoreSurface.get_rect(center = (400, 50))
 # Clock
 clock = pygame.time.Clock()
 
-# Begin main game loop
-while True:
-    
-    # Get event from queue (inputs)
-    for event in pygame.event.get():
+def main():
 
-        # on window close
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+    gameActive = True
+    playerGravity = 0
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
-                playerGravity = -20
+    # Begin main game loop
+    while True:
+        
+        # Get event from queue (inputs)
+        for event in pygame.event.get():
+
+            # on window close
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
+                    playerGravity = -20
+                
+        if gameActive:
+            # Logical updates
+            if snailRect.right <= 0:
+                snailRect.left = 800
+            snailRect.x = snailRect.x - 4
+
+            playerGravity += 1
+            playerRect.y += playerGravity
+
+            if playerRect.bottom >= groundHeight: 
+                playerRect.bottom = groundHeight
+
+            # Collisions
+
+            # Check if player rectangle collides with snail rectangle.
+            # colliderect() returns 0 or 1.
+            # Reversing the rectangles in terms of arguments would also work.
+            #playerRect.colliderect(snailRect)
+
+            if snailRect.colliderect(playerRect):
+                gameActive = False
+                
+
+            # Graphical updates
+
+            # Blit surfaces
+            # Environment
+            screen.blit(skySurface, centerCoord)
+            screen.blit(groundSurface, (0, 300))
+
+            # Score text
+            pygame.draw.rect(screen, boxColor, scoreRect) 
+            pygame.draw.rect(screen, boxColor, scoreRect, 10) 
+            screen.blit(scoreSurface, scoreRect)
             
-    # Logical updates
-    if snailRect.right <= 0:
-        snailRect.left = 800
-    snailRect.x = snailRect.x - 4
+            # Entities
+            screen.blit(snailSurface, snailRect)
+            screen.blit(playerSurface, playerRect)
+        else:
+            screen.fill('yellow')
 
-    playerGravity += 1
-    playerRect.y += playerGravity
+        # Update display surface
+        pygame.display.update()
 
-    if playerRect.bottom >= groundHeight: 
-        playerRect.bottom = groundHeight
+        # Tick speed
+        clock.tick(60)
 
-    # Collisions
+    # End main game loop.
 
-    # Check if player rectangle collides with snail rectangle.
-    # colliderect() returns 0 or 1.
-    # Reversing the rectangles in terms of arguments would also work.
-    playerRect.colliderect(snailRect)
-
-    # Graphical updates
-
-    # Blit surfaces
-    # Environment
-    screen.blit(skySurface, centerCoord)
-    screen.blit(groundSurface, (0, 300))
-
-    # Score text
-    pygame.draw.rect(screen, boxColor, scoreRect) 
-    pygame.draw.rect(screen, boxColor, scoreRect, 10) 
-    screen.blit(scoreSurface, scoreRect)
-    
-    # Entities
-    screen.blit(snailSurface, snailRect)
-    screen.blit(playerSurface, playerRect)
-
-    # Update display surface
-    pygame.display.update()
-
-    # Tick speed
-    clock.tick(60)
-
-# End main game loop.
-
-
+main()
