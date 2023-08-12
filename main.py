@@ -37,12 +37,19 @@ boxColor = '#c0e8ec'
 
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
-scoreSurface = scoreFont.render('Sample text', True, textColor)
-scoreRect = scoreSurface.get_rect(center = (400, 50))
+testSurface = scoreFont.render('Sample text', True, textColor)
+testRect = testSurface.get_rect(center = (400, 50))
 
 
 # Clock
 clock = pygame.time.Clock()
+
+def DisplayScore():
+    currentTime = pygame.time.get_ticks()
+    scoreSurface = scoreFont.render(f"{currentTime}", False, textColor)
+    scoreRect = scoreSurface.get_rect(center = (400, 50))
+    screen.blit(scoreSurface, scoreRect)
+
 
 def main():
 
@@ -62,7 +69,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
-                    playerGravity = -20
+                    playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
                     snailRect.x = 800
                     main()
@@ -97,14 +104,18 @@ def main():
             screen.blit(groundSurface, (0, 300))
 
             # Score text
-            pygame.draw.rect(screen, boxColor, scoreRect) 
-            pygame.draw.rect(screen, boxColor, scoreRect, 10) 
-            screen.blit(scoreSurface, scoreRect)
+            """
+            pygame.draw.rect(screen, boxColor, testRect) 
+            pygame.draw.rect(screen, boxColor, testRect, 10) 
+            screen.blit(testSurface, testRect)
+            """
             
             # Entities
             screen.blit(snailSurface, snailRect)
             screen.blit(playerSurface, playerRect)
+            DisplayScore()
         else:
+            # If player is dead
             screen.fill('yellow')
 
         # Update display surface
