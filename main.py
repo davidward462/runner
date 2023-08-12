@@ -4,7 +4,6 @@ from sys import exit
 # Initialize pygame subsystems
 pygame.init()
 
-
 # Set up window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -15,6 +14,7 @@ pygame.display.set_caption('Runner')
 
 # Variables
 groundHeight = 300
+startTime = 0
 
 # Surfaces
 centerCoord = (0, 0)
@@ -44,8 +44,8 @@ testRect = testSurface.get_rect(center = (400, 50))
 # Clock
 clock = pygame.time.Clock()
 
-def DisplayScore():
-    currentTime = pygame.time.get_ticks()
+def DisplayScore(startTime):
+    currentTime = pygame.time.get_ticks() - startTime
     scoreSurface = scoreFont.render(f"{currentTime}", False, textColor)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
@@ -55,6 +55,7 @@ def main():
 
     playerAlive = True
     playerGravity = 0
+    startTime = pygame.time.get_ticks()
 
     # Begin main game loop
     while True:
@@ -71,6 +72,7 @@ def main():
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                     playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
+                    # Restart game
                     snailRect.x = 800
                     main()
                 
@@ -113,7 +115,7 @@ def main():
             # Entities
             screen.blit(snailSurface, snailRect)
             screen.blit(playerSurface, playerRect)
-            DisplayScore()
+            DisplayScore(startTime)
         else:
             # If player is dead
             screen.fill('yellow')
