@@ -42,10 +42,18 @@ boxColor = '#c0e8ec'
 titleBackgroundColor = (94, 129, 162)
 
 # Text
+
+# Fonts
 gameFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 titleFont = pygame.font.Font('font/Pixeltype.ttf', 75)
+
+# Title
 titleSurface = titleFont.render('Runner', True, textColor)
 titleRect = titleSurface.get_rect(center = (400, 50))
+
+# Game instruction text
+instructionSurface = gameFont.render('press SPACE to begin', True, textColor)
+instructionRect = instructionSurface.get_rect(center = (400, 350))
 
 
 # Clock
@@ -137,6 +145,7 @@ def main():
             screen.fill(titleBackgroundColor)
             screen.blit(playerStand, playerStandRect)
             screen.blit(titleSurface, titleRect)
+            screen.blit(instructionSurface, instructionRect)
             DisplayHighscore(score)
 
         # Update display surface
