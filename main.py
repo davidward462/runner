@@ -49,6 +49,7 @@ testRect = testSurface.get_rect(center = (400, 50))
 # Clock
 clock = pygame.time.Clock()
 
+
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
     scoreSurface = scoreFont.render(f"Score: {currentTime}", False, textColor)
@@ -64,7 +65,8 @@ def DisplayHighscore(score):
 
 def main():
 
-    playerAlive = True
+    # Game varaible setup
+    playerAlive = False
     playerGravity = 0
     startTime = int(pygame.time.get_ticks() / timeFactor)
     score = 0
@@ -84,9 +86,13 @@ def main():
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                     playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
-                    # Restart game
+                    # Restart game and reset variables
                     snailRect.x = 800
-                    main()
+                    playerAlive = True
+                    playerGravity = 0
+                    startTime = int(pygame.time.get_ticks() / timeFactor)
+                    score = 0
+                    
                 
         if playerAlive:
             # Logical updates
