@@ -35,11 +35,10 @@ playerStand = pygame.image.load('graphics/player_stand.png').convert_alpha()
 playerStand = pygame.transform.scale2x(playerStand)
 playerStandRect = playerStand.get_rect(center = (400, 220))
 
-
 # Colors
-textColor = '#404040'
-boxColor = '#c0e8ec'
-titleBackgroundColor = (94, 129, 162)
+midGrey = (64, 64, 64)
+softBlue = (94, 129, 162)
+teal = (111, 196, 169)
 
 # Text
 
@@ -48,11 +47,11 @@ gameFont = pygame.font.Font('font/Pixeltype.ttf', 50)
 titleFont = pygame.font.Font('font/Pixeltype.ttf', 75)
 
 # Title
-titleSurface = titleFont.render('Runner', True, textColor)
+titleSurface = titleFont.render('Runner', True, teal)
 titleRect = titleSurface.get_rect(center = (400, 50))
 
 # Game instruction text
-instructionSurface = gameFont.render('press SPACE to begin', True, textColor)
+instructionSurface = gameFont.render('press SPACE to begin', True, midGrey)
 instructionRect = instructionSurface.get_rect(center = (400, 350))
 
 
@@ -62,13 +61,13 @@ clock = pygame.time.Clock()
 
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
-    scoreSurface = gameFont.render(f"Score: {currentTime}", False, textColor)
+    scoreSurface = gameFont.render(f"Score: {currentTime}", False, midGrey)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
     return currentTime
 
 def DisplayHighscore(score):
-    highscoreSurface = gameFont.render(f"Highscore: {score}", False, textColor)
+    highscoreSurface = gameFont.render(f"Highscore: {score}", False, midGrey)
     highscoreRect = highscoreSurface.get_rect(center = (400, 100))
     screen.blit(highscoreSurface, highscoreRect)
 
@@ -142,7 +141,7 @@ def main():
             score = DisplayScore(startTime)
         else:
             # If player is dead
-            screen.fill(titleBackgroundColor)
+            screen.fill(softBlue)
             screen.blit(playerStand, playerStandRect)
             screen.blit(titleSurface, titleRect)
             screen.blit(instructionSurface, instructionRect)
