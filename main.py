@@ -42,9 +42,10 @@ boxColor = '#c0e8ec'
 titleBackgroundColor = (94, 129, 162)
 
 # Text
-scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
-testSurface = scoreFont.render('Sample text', True, textColor)
-testRect = testSurface.get_rect(center = (400, 50))
+gameFont = pygame.font.Font('font/Pixeltype.ttf', 50)
+titleFont = pygame.font.Font('font/Pixeltype.ttf', 75)
+titleSurface = titleFont.render('Runner', True, textColor)
+titleRect = titleSurface.get_rect(center = (400, 50))
 
 
 # Clock
@@ -53,13 +54,13 @@ clock = pygame.time.Clock()
 
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
-    scoreSurface = scoreFont.render(f"Score: {currentTime}", False, textColor)
+    scoreSurface = gameFont.render(f"Score: {currentTime}", False, textColor)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
     return currentTime
 
 def DisplayHighscore(score):
-    highscoreSurface = scoreFont.render(f"Highscore: {score}", False, textColor)
+    highscoreSurface = gameFont.render(f"Highscore: {score}", False, textColor)
     highscoreRect = highscoreSurface.get_rect(center = (400, 100))
     screen.blit(highscoreSurface, highscoreRect)
 
@@ -135,6 +136,7 @@ def main():
             # If player is dead
             screen.fill(titleBackgroundColor)
             screen.blit(playerStand, playerStandRect)
+            screen.blit(titleSurface, titleRect)
             DisplayHighscore(score)
 
         # Update display surface
