@@ -28,9 +28,13 @@ snailRect = snailSurface.get_rect(midbottom = (600, groundHeight))
 
 # Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
-
-# Draw rectangle around surface
 playerRect = playerSurface.get_rect(midbottom = (80, groundHeight)) 
+
+# Scaled player
+playerStand = pygame.image.load('graphics/player_stand.png').convert_alpha()
+playerStand = pygame.transform.scale2x(playerStand)
+playerStandRect = playerStand.get_rect(center = (400, 220))
+
 
 # Colors
 textColor = '#404040'
@@ -118,6 +122,7 @@ def main():
         else:
             # If player is dead
             screen.fill((94, 129, 162))
+            screen.blit(playerStand, playerStandRect)
             DisplayHighscore(score)
 
         # Update display surface
