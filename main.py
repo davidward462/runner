@@ -47,9 +47,15 @@ clock = pygame.time.Clock()
 
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
-    scoreSurface = scoreFont.render(f"{currentTime}", False, textColor)
+    scoreSurface = scoreFont.render(f"Score: {currentTime}", False, textColor)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
+    return currentTime
+
+def DisplayHighscore(score):
+    highscoreSurface = scoreFont.render(f"Highscore: {score}", False, textColor)
+    highscoreRect = highscoreSurface.get_rect(center = (400, 100))
+    screen.blit(highscoreSurface, highscoreRect)
 
 
 def main():
@@ -57,6 +63,7 @@ def main():
     playerAlive = True
     playerGravity = 0
     startTime = int(pygame.time.get_ticks() / timeFactor)
+    score = 0
 
     # Begin main game loop
     while True:
@@ -91,11 +98,9 @@ def main():
 
             # Collisions
 
-            # Check if player rectangle collides with snail rectangle.
+            # Check if snail rectangle collides with player rectangle.
             # colliderect() returns 0 or 1.
             # Reversing the rectangles in terms of arguments would also work.
-            #playerRect.colliderect(snailRect)
-
             if snailRect.colliderect(playerRect):
                 playerAlive = False
 
@@ -106,20 +111,14 @@ def main():
             screen.blit(skySurface, centerCoord)
             screen.blit(groundSurface, (0, 300))
 
-            # Score text
-            """
-            pygame.draw.rect(screen, boxColor, testRect) 
-            pygame.draw.rect(screen, boxColor, testRect, 10) 
-            screen.blit(testSurface, testRect)
-            """
-            
             # Entities
             screen.blit(snailSurface, snailRect)
             screen.blit(playerSurface, playerRect)
-            DisplayScore(startTime)
+            score = DisplayScore(startTime)
         else:
             # If player is dead
             screen.fill('yellow')
+            DisplayHighscore(score)
 
         # Update display surface
         pygame.display.update()
