@@ -117,7 +117,7 @@ def main():
             score = DisplayScore(startTime)
         else:
             # If player is dead
-            screen.fill('yellow')
+            screen.fill((94, 129, 162))
             DisplayHighscore(score)
 
         # Update display surface
