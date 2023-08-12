@@ -15,6 +15,7 @@ pygame.display.set_caption('Runner')
 # Variables
 groundHeight = 300
 startTime = 0
+timeFactor = 100
 
 # Surfaces
 centerCoord = (0, 0)
@@ -45,7 +46,7 @@ testRect = testSurface.get_rect(center = (400, 50))
 clock = pygame.time.Clock()
 
 def DisplayScore(startTime):
-    currentTime = pygame.time.get_ticks() - startTime
+    currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
     scoreSurface = scoreFont.render(f"{currentTime}", False, textColor)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
@@ -55,7 +56,7 @@ def main():
 
     playerAlive = True
     playerGravity = 0
-    startTime = pygame.time.get_ticks()
+    startTime = int(pygame.time.get_ticks() / timeFactor)
 
     # Begin main game loop
     while True:
