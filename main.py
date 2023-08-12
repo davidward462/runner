@@ -28,7 +28,7 @@ snailRect = snailSurface.get_rect(midbottom = (600, groundHeight))
 
 # Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
-playerRect = playerSurface.get_rect(midbottom = (80, groundHeight)) 
+playerRect = playerSurface.get_rect(midbottom = (100, groundHeight)) 
 
 # Scaled player
 playerStand = pygame.image.load('graphics/player_stand.png').convert_alpha()
