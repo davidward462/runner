@@ -68,7 +68,7 @@ def DisplayScore(startTime):
 
 def DisplayHighscore(score):
     highscoreSurface = gameFont.render(f"Highscore: {score}", False, midGrey)
-    highscoreRect = highscoreSurface.get_rect(center = (400, 100))
+    highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
 def QuitGame():
@@ -140,12 +140,15 @@ def main():
             screen.blit(playerSurface, playerRect)
             score = DisplayScore(startTime)
         else:
-            # If player is dead
+            # Title/end screen
             screen.fill(softBlue)
             screen.blit(playerStand, playerStandRect)
             screen.blit(titleSurface, titleRect)
-            screen.blit(instructionSurface, instructionRect)
-            DisplayHighscore(score)
+
+            if score > 0:
+                DisplayHighscore(score)
+            else:
+                screen.blit(instructionSurface, instructionRect)
 
         # Update display surface
         pygame.display.update()
