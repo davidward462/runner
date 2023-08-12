@@ -39,6 +39,7 @@ playerStandRect = playerStand.get_rect(center = (400, 220))
 # Colors
 textColor = '#404040'
 boxColor = '#c0e8ec'
+titleBackgroundColor = (94, 129, 162)
 
 # Text
 scoreFont = pygame.font.Font('font/Pixeltype.ttf', 50)
@@ -62,6 +63,10 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 100))
     screen.blit(highscoreSurface, highscoreRect)
 
+def QuitGame():
+    pygame.quit()
+    exit()
+
 
 def main():
 
@@ -79,10 +84,11 @@ def main():
 
             # on window close
             if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+                QuitGame()
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    QuitGame()
                 if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
                     playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
@@ -127,7 +133,7 @@ def main():
             score = DisplayScore(startTime)
         else:
             # If player is dead
-            screen.fill((94, 129, 162))
+            screen.fill(titleBackgroundColor)
             screen.blit(playerStand, playerStandRect)
             DisplayHighscore(score)
 
