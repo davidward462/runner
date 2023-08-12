@@ -67,7 +67,7 @@ def DisplayScore(startTime):
     return currentTime
 
 def DisplayHighscore(score):
-    highscoreSurface = gameFont.render(f"Highscore: {score}", False, midGrey)
+    highscoreSurface = gameFont.render(f"Score: {score}", False, midGrey)
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
