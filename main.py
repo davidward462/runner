@@ -124,7 +124,7 @@ def main():
             # Logical updates
             if snailRect.right <= 0:
                 snailRect.left = 800
-            snailRect.x = snailRect.x - 4.5
+            snailRect.x = snailRect.x - 4
 
             playerGravity += 1
             playerRect.y += playerGravity
