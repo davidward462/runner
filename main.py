@@ -24,8 +24,12 @@ skySurface = pygame.image.load('graphics/Sky.png').convert_alpha()
 groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 # Entities
+
+# Snail
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
-snailRect = snailSurface.get_rect(midbottom = (600, groundHeight))
+
+# Fly
+flySurface = pygame.image.load('graphics/Fly1.png').convert_alpha()
 
 # Player
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
@@ -92,7 +96,14 @@ def UpdateEnemyList(rectList):
 def DisplayEnemies(rectList):
     if rectList:
         for rect in rectList:
-            screen.blit(snailSurface, rect)
+
+            if rect.bottom == 300:
+                # Snail
+                screen.blit(snailSurface, rect)
+            else:
+                # Fly
+                screen.blit(flySurface, rect)
+
         return rectList
     else:
         return []
@@ -135,8 +146,16 @@ def main():
                     score = 0
 
             if event.type == enemyTimer and playerAlive:
+
+                # Spawn enemy
                 enemyX = randint(900, 1100)
-                enemyRect = snailRect = snailSurface.get_rect(midbottom = (enemyX, groundHeight))
+                if randint(0,2):
+                    # Spawn snail
+                    enemyRect = snailSurface.get_rect(midbottom = (enemyX, groundHeight))
+                else:
+                    # Spawn fly
+                    enemyRect = flySurface.get_rect(midbottom = (enemyX, groundHeight - 100))
+
                 enemyRectList.append(enemyRect)
 
             # End event loop
