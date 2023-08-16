@@ -77,7 +77,7 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
-def EnemyMovement(rectList):
+def UpdateEnemyList(rectList):
     if rectList:
         for rect in rectList:
             rect.x -= 5
@@ -140,7 +140,7 @@ def main():
         if playerAlive:
 
             # Logical updates
-            enemyRectList = EnemyMovement(enemyRectList)
+            enemyRectList = UpdateEnemyList(enemyRectList)
 
             playerGravity += 1
             playerRect.y += playerGravity
