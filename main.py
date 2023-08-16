@@ -58,6 +58,11 @@ instructionRect = instructionSurface.get_rect(center = (400, 350))
 # Clock
 clock = pygame.time.Clock()
 
+# Timer
+# Custom user event
+obstacleTimer = pygame.USEREVENT + 1
+pygame.time.set_timer(obstacleTimer, 900)
+
 
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
@@ -89,6 +94,7 @@ def main():
         
         # Get event from queue (inputs)
         for event in pygame.event.get():
+        # Begin event loop
 
             # on window close
             if event.type == pygame.QUIT:
@@ -106,13 +112,19 @@ def main():
                     playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
+
+            if event.type == obstacleTimer and playerAlive:
+                print('test')
+
+
+            # End event loop
                     
                 
         if playerAlive:
             # Logical updates
             if snailRect.right <= 0:
                 snailRect.left = 800
-            snailRect.x = snailRect.x - 4
+            snailRect.x = snailRect.x - 4.5
 
             playerGravity += 1
             playerRect.y += playerGravity
