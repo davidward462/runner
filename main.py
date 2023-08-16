@@ -62,7 +62,7 @@ clock = pygame.time.Clock()
 # Timer
 # Custom user event
 enemyTimer = pygame.USEREVENT + 1
-pygame.time.set_timer(enemyTimer, 900)
+pygame.time.set_timer(enemyTimer, 1600)
 
 
 def DisplayScore(startTime):
@@ -81,6 +81,13 @@ def EnemyMovement(rectList):
     if rectList:
         for rect in rectList:
             rect.x -= 5
+        return rectList
+    else:
+        return []
+
+def DisplayEnemies(rectList):
+    if rectList:
+        for rect in rectList:
             screen.blit(snailSurface, rect)
         return rectList
     else:
@@ -133,13 +140,7 @@ def main():
         if playerAlive:
 
             # Logical updates
-
-
-            """
-            if snailRect.right <= 0:
-                snailRect.left = 800
-            snailRect.x = snailRect.x - 4
-            """
+            enemyRectList = EnemyMovement(enemyRectList)
 
             playerGravity += 1
             playerRect.y += playerGravity
@@ -162,7 +163,7 @@ def main():
             # Environment
             screen.blit(skySurface, centerCoord)
             screen.blit(groundSurface, (0, 300))
-            enemyRectList = EnemyMovement(enemyRectList)
+            enemyRectList = DisplayEnemies(enemyRectList)
 
             # Entities
             # screen.blit(snailSurface, snailRect)
