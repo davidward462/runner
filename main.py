@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+from random import randint
 
 # Initialize pygame subsystems
 pygame.init()
@@ -60,8 +61,8 @@ clock = pygame.time.Clock()
 
 # Timer
 # Custom user event
-obstacleTimer = pygame.USEREVENT + 1
-pygame.time.set_timer(obstacleTimer, 900)
+enemyTimer = pygame.USEREVENT + 1
+pygame.time.set_timer(enemyTimer, 900)
 
 
 def DisplayScore(startTime):
@@ -76,10 +77,18 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
+def EnemyMovement(rectList):
+    if rectList:
+        for rect in rectList:
+            rect.x -= 5
+            screen.blit(snailSurface, rect)
+        return rectList
+    else:
+        return []
+
 def QuitGame():
     pygame.quit()
     exit()
-
 
 def main():
 
@@ -88,6 +97,7 @@ def main():
     playerGravity = 0
     startTime = int(pygame.time.get_ticks() / timeFactor)
     score = 0
+    enemyRectList = []
 
     # Begin main game loop
     while True:
@@ -107,24 +117,29 @@ def main():
                     playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
                     # Restart game and reset variables
-                    snailRect.x = 800
+                    enemyRectList = []
                     playerAlive = True
                     playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
 
-            if event.type == obstacleTimer and playerAlive:
-                print('test')
-
+            if event.type == enemyTimer and playerAlive:
+                enemyX = randint(900, 1100)
+                enemyRect = snailRect = snailSurface.get_rect(midbottom = (enemyX, groundHeight))
+                enemyRectList.append(enemyRect)
 
             # End event loop
-                    
                 
         if playerAlive:
+
             # Logical updates
+
+
+            """
             if snailRect.right <= 0:
                 snailRect.left = 800
             snailRect.x = snailRect.x - 4
+            """
 
             playerGravity += 1
             playerRect.y += playerGravity
@@ -137,8 +152,9 @@ def main():
             # Check if snail rectangle collides with player rectangle.
             # colliderect() returns 0 or 1.
             # Reversing the rectangles in terms of arguments would also work.
-            if snailRect.colliderect(playerRect):
-                playerAlive = False
+            for rect in enemyRectList:
+                if rect.colliderect(playerRect):
+                    playerAlive = False
 
             # Graphical updates
 
@@ -146,9 +162,10 @@ def main():
             # Environment
             screen.blit(skySurface, centerCoord)
             screen.blit(groundSurface, (0, 300))
+            enemyRectList = EnemyMovement(enemyRectList)
 
             # Entities
-            screen.blit(snailSurface, snailRect)
+            # screen.blit(snailSurface, snailRect)
             screen.blit(playerSurface, playerRect)
             score = DisplayScore(startTime)
         else:
