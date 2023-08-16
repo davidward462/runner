@@ -81,6 +81,10 @@ def UpdateEnemyList(rectList):
     if rectList:
         for rect in rectList:
             rect.x -= 5
+
+        # list comprehension
+        rectList = [rect for rect in rectList if rect.x > -100]
+
         return rectList
     else:
         return []
