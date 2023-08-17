@@ -92,10 +92,21 @@ def UpdateEnemyList(rectList):
     else:
         return []
 
+# Check collision between a rectangle and any other rectangle in a list
+def Collision(rectList, inputRect):
+
+    # colliderect() returns 0 or 1.
+    # Reversing the rectangles in terms of arguments would also work.
+    for rect in rectList:
+        if rect.colliderect(inputRect):
+            return True
+
+
 def DisplayEnemies(rectList):
     if rectList:
         for rect in rectList:
 
+            # Determine which to draw based on rectangle position
             if rect.bottom == 300:
                 # Snail
                 screen.blit(snailSurface, rect)
@@ -140,6 +151,7 @@ def main():
                     # Restart game and reset variables
                     enemyRectList = []
                     playerAlive = True
+                    playerRect.midbottom = (80, 300)
                     playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
@@ -171,13 +183,8 @@ def main():
                 playerRect.bottom = groundHeight
 
             # Collisions
-
-            # Check if snail rectangle collides with player rectangle.
-            # colliderect() returns 0 or 1.
-            # Reversing the rectangles in terms of arguments would also work.
-            for rect in enemyRectList:
-                if rect.colliderect(playerRect):
-                    playerAlive = False
+            if Collision(enemyRectList, playerRect):
+                playerAlive = False
 
             # Graphical updates
 
