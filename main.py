@@ -152,6 +152,7 @@ def main():
                     # Restart game and reset variables
                     enemyRectList = []
                     playerAlive = True
+                    playerRect.midbottom = (80, 300)
                     playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
