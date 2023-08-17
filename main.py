@@ -59,15 +59,14 @@ titleRect = titleSurface.get_rect(center = (400, 50))
 instructionSurface = gameFont.render('press SPACE to begin', True, midGrey)
 instructionRect = instructionSurface.get_rect(center = (400, 350))
 
-
 # Clock
 clock = pygame.time.Clock()
 
 # Timer
 # Custom user event
 enemyTimer = pygame.USEREVENT + 1
-pygame.time.set_timer(enemyTimer, 1600)
-
+eventRate = 1500
+pygame.time.set_timer(enemyTimer, eventRate)
 
 def DisplayScore(startTime):
     currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
