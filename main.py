@@ -1,6 +1,7 @@
 import pygame
 from sys import exit
 from random import randint
+import player
 
 # Initialize pygame subsystems
 pygame.init()
@@ -32,6 +33,8 @@ snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 flySurface = pygame.image.load('graphics/Fly1.png').convert_alpha()
 
 # Player
+player = player.Player()
+
 playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
 playerRect = playerSurface.get_rect(midbottom = (100, groundHeight)) 
 
