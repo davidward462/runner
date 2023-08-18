@@ -203,7 +203,11 @@ def main():
 
             # Entities
             screen.blit(playerSurface, playerRect)
+
+            # update player sprite group
             player.draw(screen)
+            player.update()
+
             score = DisplayScore(startTime)
         else:
             # Title/end screen
