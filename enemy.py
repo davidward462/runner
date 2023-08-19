@@ -33,5 +33,6 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         self.AnimationState()
+        self.rect.x -= 6
 
 

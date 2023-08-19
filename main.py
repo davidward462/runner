@@ -31,7 +31,7 @@ groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 
 # Fly
-flySurface = pygame.image.load('graphics/Fly1.png').convert_alpha()
+flySurface = pygame.image.load('graphics/fly1.png').convert_alpha()
 
 # Player
 
@@ -210,6 +210,9 @@ def main():
 
             # Entities
             screen.blit(playerSurface, playerRect)
+
+            enemyGroup.draw(screen)
+            enemyGroup.update()
 
             # update player sprite group
             player.draw(screen)
