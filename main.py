@@ -81,8 +81,8 @@ def DisplayScore(startTime):
     screen.blit(scoreSurface, scoreRect)
     return currentTime
 
-def DisplayHighscore(score):
-    highscoreSurface = gameFont.render(f"Score: {score}", False, midGrey)
+def DisplayHighscore(currentScore):
+    highscoreSurface = gameFont.render(f"Score: {currentScore}", False, midGrey)
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
@@ -103,7 +103,8 @@ def main():
     # Game varaible setup
     playerAlive = False
     startTime = int(pygame.time.get_ticks() / timeFactor)
-    score = 0
+    currentScore = 0
+    highscore = 0
 
     # Begin main game loop
     while True:
@@ -123,7 +124,7 @@ def main():
                     # Restart game and reset variables
                     playerAlive = True
                     startTime = int(pygame.time.get_ticks() / timeFactor)
-                    score = 0
+                    currentScore = 0
 
             # Spawn enemy into group
             if event.type == enemyTimer and playerAlive:
@@ -150,7 +151,7 @@ def main():
             player.draw(screen)
 
             # Show score
-            score = DisplayScore(startTime)
+            currentScore = DisplayScore(startTime)
 
         else:
             # Title/end screen
@@ -158,8 +159,8 @@ def main():
             screen.blit(playerStand, playerStandRect)
             screen.blit(titleSurface, titleRect)
 
-            if score > 0:
-                DisplayHighscore(score)
+            if currentScore > 0:
+                DisplayHighscore(currentScore)
             else:
                 screen.blit(instructionSurface, instructionRect)
 
