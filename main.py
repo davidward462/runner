@@ -73,7 +73,7 @@ instructionRect = instructionSurface.get_rect(center = (400, 350))
 backgroundMusic = pygame.mixer.Sound('audio/music.wav')
 backgroundMusic.set_volume(0.7)
 # Loop sound forever
-backgroundMusic.play(loop = -1)
+backgroundMusic.play(loops = -1)
 
 # Clock
 clock = pygame.time.Clock()
