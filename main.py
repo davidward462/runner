@@ -172,17 +172,6 @@ def main():
 
                 enemyGroup.add(Enemy('fly'))
 
-                # Spawn enemy
-                enemyX = randint(900, 1100)
-                if randint(0,2):
-                    # Spawn snail
-                    enemyRect = snailSurface.get_rect(midbottom = (enemyX, groundHeight))
-                else:
-                    # Spawn fly
-                    enemyRect = flySurface.get_rect(midbottom = (enemyX, groundHeight - 100))
-
-                enemyRectList.append(enemyRect)
-
             # End event loop
                 
         if playerAlive:
