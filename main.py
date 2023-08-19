@@ -89,6 +89,13 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
+def CollisionSprite():
+    if pygame.sprite.spritecollide(player.sprite, enemyGroup, False):
+        return False
+    else:
+        return True
+
+
 def QuitGame():
     pygame.quit()
     exit()
@@ -133,6 +140,7 @@ def main():
         if playerAlive:
 
             # Logical updates
+            playerAlive = CollisionSprite()
 
             # Graphical updates
 
