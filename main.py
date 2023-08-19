@@ -2,6 +2,7 @@ import pygame
 from sys import exit
 from random import randint
 from player import Player
+from enemy import Enemy
 
 # Initialize pygame subsystems
 pygame.init()
@@ -33,6 +34,10 @@ snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
 flySurface = pygame.image.load('graphics/Fly1.png').convert_alpha()
 
 # Player
+
+# Groups
+
+enemyGroup = pygame.sprite.Group()
 
 # Create group
 player = pygame.sprite.GroupSingle()
@@ -164,6 +169,8 @@ def main():
                     score = 0
 
             if event.type == enemyTimer and playerAlive:
+
+                enemyGroup.add(Enemy('fly'))
 
                 # Spawn enemy
                 enemyX = randint(900, 1100)
