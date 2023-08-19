@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 # class inherets from pygame sprite class
 class Enemy(pygame.sprite.Sprite):
@@ -19,5 +20,13 @@ class Enemy(pygame.sprite.Sprite):
             self.frames = [snail1, snail2]
             yPos = 300
 
-        self.image = None
-        self.rect = None
+        self.animationIndex = 0
+
+        self.image = self.frames[self.animationIndex]
+        self.rect = self.image.get_rect(midbottom = (randint(900, 1100), yPos))
+
+
+
+
+
+
