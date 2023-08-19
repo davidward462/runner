@@ -91,6 +91,7 @@ def DisplayHighscore(score):
 
 def CollisionSprite():
     if pygame.sprite.spritecollide(player.sprite, enemyGroup, False):
+        enemyGroup.empty() # Remove all enemies from group (game is over)
         return False
     else:
         return True
@@ -126,7 +127,6 @@ def main():
                 if event.key == pygame.K_SPACE and not playerAlive:
                     # Restart game and reset variables
                     playerAlive = True
-                    playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
 
@@ -155,8 +155,8 @@ def main():
             enemyGroup.update()
 
             # update player sprite group
-            player.draw(screen)
             player.update()
+            player.draw(screen)
 
             score = DisplayScore(startTime)
         else:
