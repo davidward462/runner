@@ -7,6 +7,7 @@ from enemy import Enemy
 # Initialize pygame subsystems
 pygame.init()
 
+
 # Set up window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -67,6 +68,12 @@ titleRect = titleSurface.get_rect(center = (400, 50))
 # Game instruction text
 instructionSurface = gameFont.render('press SPACE to begin', True, midGrey)
 instructionRect = instructionSurface.get_rect(center = (400, 350))
+
+# Music
+backgroundMusic = pygame.mixer.Sound('audio/music.wav')
+backgroundMusic.set_volume(0.7)
+# Loop sound forever
+backgroundMusic.play(loop = -1)
 
 # Clock
 clock = pygame.time.Clock()
