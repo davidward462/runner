@@ -26,23 +26,13 @@ centerCoord = (0, 0)
 skySurface = pygame.image.load('graphics/Sky.png').convert_alpha()
 groundSurface = pygame.image.load('graphics/ground.png').convert_alpha()
 
-# Entities
-
-# Snail
-snailSurface = pygame.image.load('graphics/snail1.png').convert_alpha()
-
-# Fly
-flySurface = pygame.image.load('graphics/fly1.png').convert_alpha()
-
-# Player
-
 # Groups
 
+# Create enemy group
 enemyGroup = pygame.sprite.Group()
 
-# Create group
+# Create player group
 player = pygame.sprite.GroupSingle()
-# add instance of player to group
 player.add(Player())
 
 # Scaled player
@@ -96,7 +86,7 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
-def CollisionSprite():
+def PlayerCollideWithEnemy():
     if pygame.sprite.spritecollide(player.sprite, enemyGroup, False):
         enemyGroup.empty() # Remove all enemies from group (game is over)
         return False
@@ -112,10 +102,8 @@ def main():
 
     # Game varaible setup
     playerAlive = False
-    playerGravity = 0
     startTime = int(pygame.time.get_ticks() / timeFactor)
     score = 0
-    enemyRectList = []
 
     # Begin main game loop
     while True:
@@ -147,25 +135,23 @@ def main():
         if playerAlive:
 
             # Logical updates
-            playerAlive = CollisionSprite()
+            enemyGroup.update()
+            player.update()
+            playerAlive = PlayerCollideWithEnemy()
 
             # Graphical updates
 
-            # Blit surfaces
             # Environment
             screen.blit(skySurface, centerCoord)
             screen.blit(groundSurface, (0, 300))
 
-            # Entities
-
+            # Draw entities
             enemyGroup.draw(screen)
-            enemyGroup.update()
-
-            # update player sprite group
-            player.update()
             player.draw(screen)
 
+            # Show score
             score = DisplayScore(startTime)
+
         else:
             # Title/end screen
             screen.fill(softBlue)
