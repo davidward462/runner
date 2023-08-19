@@ -1,6 +1,6 @@
 import pygame
 from sys import exit
-from random import randint
+from random import randint, choice
 from player import Player
 from enemy import Enemy
 
@@ -43,9 +43,6 @@ enemyGroup = pygame.sprite.Group()
 player = pygame.sprite.GroupSingle()
 # add instance of player to group
 player.add(Player())
-
-playerSurface = pygame.image.load('graphics/player_walk_1.png').convert_alpha()
-playerRect = playerSurface.get_rect(midbottom = (100, groundHeight)) 
 
 # Scaled player
 playerStand = pygame.image.load('graphics/player_stand.png').convert_alpha()
@@ -92,44 +89,6 @@ def DisplayHighscore(score):
     highscoreRect = highscoreSurface.get_rect(center = (400, 350))
     screen.blit(highscoreSurface, highscoreRect)
 
-def UpdateEnemyList(rectList):
-    if rectList:
-        for rect in rectList:
-            rect.x -= 5
-
-        # list comprehension
-        rectList = [rect for rect in rectList if rect.x > -100]
-
-        return rectList
-    else:
-        return []
-
-# Check collision between a rectangle and any other rectangle in a list
-def Collision(rectList, inputRect):
-
-    # colliderect() returns 0 or 1.
-    # Reversing the rectangles in terms of arguments would also work.
-    for rect in rectList:
-        if rect.colliderect(inputRect):
-            return True
-
-
-def DisplayEnemies(rectList):
-    if rectList:
-        for rect in rectList:
-
-            # Determine which to draw based on rectangle position
-            if rect.bottom == 300:
-                # Snail
-                screen.blit(snailSurface, rect)
-            else:
-                # Fly
-                screen.blit(flySurface, rect)
-
-        return rectList
-    else:
-        return []
-
 def QuitGame():
     pygame.quit()
     exit()
@@ -157,37 +116,23 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     QuitGame()
-                if event.key == pygame.K_SPACE and playerRect.bottom >= groundHeight:
-                    playerGravity = -22
                 if event.key == pygame.K_SPACE and not playerAlive:
                     # Restart game and reset variables
-                    enemyRectList = []
                     playerAlive = True
-                    playerRect.midbottom = (80, 300)
                     playerGravity = 0
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     score = 0
 
+            # Spawn enemy into group
             if event.type == enemyTimer and playerAlive:
-
-                enemyGroup.add(Enemy('fly'))
+                enemyType = choice(['fly', 'snail', 'snail'])
+                enemyGroup.add(Enemy(enemyType))
 
             # End event loop
                 
         if playerAlive:
 
             # Logical updates
-            enemyRectList = UpdateEnemyList(enemyRectList)
-
-            playerGravity += 1
-            playerRect.y += playerGravity
-
-            if playerRect.bottom >= groundHeight: 
-                playerRect.bottom = groundHeight
-
-            # Collisions
-            if Collision(enemyRectList, playerRect):
-                playerAlive = False
 
             # Graphical updates
 
@@ -195,10 +140,8 @@ def main():
             # Environment
             screen.blit(skySurface, centerCoord)
             screen.blit(groundSurface, (0, 300))
-            enemyRectList = DisplayEnemies(enemyRectList)
 
             # Entities
-            screen.blit(playerSurface, playerRect)
 
             enemyGroup.draw(screen)
             enemyGroup.update()

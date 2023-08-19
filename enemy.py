@@ -37,7 +37,7 @@ class Enemy(pygame.sprite.Sprite):
         self.destroy()
 
     def destroy(self):
-        if self.rect.x <= 100:
+        if self.rect.x <= -100:
             self.kill()
 
 
