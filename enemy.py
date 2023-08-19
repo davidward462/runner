@@ -25,8 +25,13 @@ class Enemy(pygame.sprite.Sprite):
         self.image = self.frames[self.animationIndex]
         self.rect = self.image.get_rect(midbottom = (randint(900, 1100), yPos))
 
+    def AnimationState(self):
+        self.animationIndex += 0.1
+        if self.animationIndex >= len(self.frames):
+            self.animationIndex = 0
+        self.image = self.frames[int(self.animationIndex)]
 
-
-
+    def update(self):
+        self.AnimationState()
 
 
