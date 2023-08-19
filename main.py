@@ -75,16 +75,21 @@ eventRate = 1500
 pygame.time.set_timer(enemyTimer, eventRate)
 
 def DisplayScore(startTime):
-    currentTime = int(pygame.time.get_ticks() / timeFactor) - startTime
-    scoreSurface = gameFont.render(f"Score: {currentTime}", False, midGrey)
+    currentScore = int(pygame.time.get_ticks() / timeFactor) - startTime
+    scoreSurface = gameFont.render(f"Score: {currentScore}", False, midGrey)
     scoreRect = scoreSurface.get_rect(center = (400, 50))
     screen.blit(scoreSurface, scoreRect)
-    return currentTime
+    return currentScore
 
-def DisplayHighscore(currentScore):
-    highscoreSurface = gameFont.render(f"Score: {currentScore}", False, midGrey)
-    highscoreRect = highscoreSurface.get_rect(center = (400, 350))
-    screen.blit(highscoreSurface, highscoreRect)
+def DisplayEndScore(score, isNewHighscore):
+
+    if isNewHighscore:
+        scoreSurface = gameFont.render(f"New Highscore: {score}", False, midGrey)
+    else:
+        scoreSurface = gameFont.render(f"Score: {score}", False, midGrey)
+
+    scoreRect = scoreSurface.get_rect(center = (400, 350))
+    screen.blit(scoreSurface, scoreRect)
 
 def PlayerCollideWithEnemy():
     if pygame.sprite.spritecollide(player.sprite, enemyGroup, False):
@@ -105,6 +110,7 @@ def main():
     startTime = int(pygame.time.get_ticks() / timeFactor)
     currentScore = 0
     highscore = 0
+    isNewHighscore = False
 
     # Begin main game loop
     while True:
@@ -125,6 +131,7 @@ def main():
                     playerAlive = True
                     startTime = int(pygame.time.get_ticks() / timeFactor)
                     currentScore = 0
+                    isNewHighscore = False
 
             # Spawn enemy into group
             if event.type == enemyTimer and playerAlive:
@@ -153,6 +160,10 @@ def main():
             # Show score
             currentScore = DisplayScore(startTime)
 
+            if currentScore > highscore:
+                isNewHighscore = True
+                highscore = currentScore
+
         else:
             # Title/end screen
             screen.fill(softBlue)
@@ -160,8 +171,10 @@ def main():
             screen.blit(titleSurface, titleRect)
 
             if currentScore > 0:
-                DisplayHighscore(currentScore)
+                # If the player has obtained a score
+                DisplayEndScore(currentScore, isNewHighscore)
             else:
+                # If the player has not obtained any score
                 screen.blit(instructionSurface, instructionRect)
 
         # Update display surface
